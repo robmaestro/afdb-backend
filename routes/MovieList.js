@@ -7,11 +7,16 @@ const db = require('../db/index.js');
 app.get('/', getMovies);
 
 
-app.get('/', searchName);
-app.post('/', addName);
+//app.get('/', searchName);
+//app.post('/', addName);
 app.put('/', editName);
 app.delete('/', removeName);
 
+app.post("/register",(req,res) => {
+    db.query("INSERT INTO user_info (Email,Username,Password) VALUES (?,?,?)", [email,username,password], (err, result) => {
+        console.log(err);
+    })
+})
 async function getMovies(req, res) {
     try{
         let results = await db.all();
