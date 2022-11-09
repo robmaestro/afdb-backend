@@ -171,9 +171,10 @@ app.post("/review", (req, res) => {
   const review_content = req.body.content;
   const review_headline = req.body.headline;
   const review_rate = req.body.reviewrate;
+  const movie_id = req.body.movieid;
 
-  pool.query("INSERT INTO review (review_content, review_headline, review_rate) VALUES (?,?,?)",
-    [review_content, review_headline, review_rate],
+  pool.query("INSERT INTO review (review_content, review_headline, review_rate, movie_id) VALUES (?,?,?,?)",
+    [review_content, review_headline, review_rate, movie_id],
     (err, result) => {
       console.log(err);
     }
