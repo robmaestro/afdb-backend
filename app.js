@@ -156,8 +156,8 @@ app.post("/post", (req, res) => {
 
 });
 
-app.get("/toks", (req, res) => {
-  const movie_id = req.body.movieid;
+app.get("/toks/:movieid", (req, res) => {
+  const movie_id = req.params.movieid;
   pool.query('SELECT * FROM posts WHERE movie_id = ?', movie_id, (err, results) => {
     if (err) {
       console.log(e);
