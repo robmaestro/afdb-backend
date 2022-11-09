@@ -50,6 +50,19 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/genre', (req, res) => {
+  const genre = req.body.genre;
+
+  pool.query('SELECT * FROM movies WHERE genre = ?;', genre, (err, results) => {
+    if (err) {
+      console.log(e);
+    }
+    else {
+      res.send({ results: results });
+    }
+  });
+});
+
 app.post("/register", (req, res) => {
 
   const email = req.body.email;
