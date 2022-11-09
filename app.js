@@ -168,17 +168,18 @@ app.get("/toks/:movieid", (req, res) => {
 });
 
 app.post("/review", (req, res) => {
-    const review_content = req.body.content;
-    const movie_id = req.body.movieid;
+  const review_content = req.body.content;
+  const review_headline = req.body.headline;
+  const review_rate = req.body.reviewrate;
 
-    pool.query("INSERT INTO review (review_content, movie_ID) VALUES (?,?)",
-        [review_content, movie_id],
-        (err, result) => {
-            console.log(err);
-        }
-    );
+  pool.query("INSERT INTO review (review_content, review_headline, review_rate) VALUES (?,?,?)",
+    [review_content, review_headline, review_rate],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+
 });
-
 app.get("/review/:movieid", (req, res) => {
     const movie_id = req.params.movieid;
     pool.query('SELECT * FROM review WHERE movie_ID = ?', movie_id, (err, results) => {
