@@ -50,6 +50,18 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/post', (req, res) => {
+  const movie_ID = req.body.movieid;
+  pool.query('SELECT * FROM posts WHERE movie_ID = ?', movie_ID, (err, results) => {
+    if (err) {
+      console.log(e);
+    }
+    else {
+      res.send({ results: results });
+    }
+  });
+});
+
 app.get('/genre', (req, res) => {
   const genre = req.body.genre;
 
@@ -113,6 +125,33 @@ app.post("/login", (req, res) => {
     }
   );
 })
+
+app.post("/post", (req, res) => {
+  const post_content = req.body.content;
+  const movie_id = req.body.movieid;
+
+  pool.query("INSERT INTO posts (post_content, movie_ID) VALUES (?,?)",
+    [post_content, movie_id],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+
+});
+
+app.post("/review", (req, res) => {
+  const review_content = req.body.content;
+  const movie_id = req.body.movieid;
+
+  pool.query("INSERT INTO review (review_content, movie_ID) VALUES (?,?)",
+    [review_content, movie_id],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
