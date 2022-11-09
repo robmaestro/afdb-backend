@@ -45,18 +45,6 @@ app.get('/', (req, res) => {
             console.log(e);
         }
         else {
-      res.send({ results: results }); 
-    }
-  }); 
-});
-
-app.get("/toks/:movieid", (req, res) => {
-  const movie_id = req.params.movieid;
-  pool.query('SELECT * FROM posts WHERE movie_ID = ?', movie_id , (err, results) => {
-    if (err) {
-      console.log(e);
-    }
-    else {
             res.send({ results: results });
         }
     });
@@ -168,15 +156,15 @@ app.post("/post", (req, res) => {
 });
 
 app.get("/toks/:movieid", (req, res) => {
-  const movie_id = req.params.movieid;
-  pool.query('SELECT * FROM posts WHERE movie_id = ?', movie_id, (err, results) => {
-    if (err) {
-      console.log(e);
-    }
-    else {
-      res.send({ results: results });
-    }
-  });
+    const movie_id = req.params.movieid;
+    pool.query('SELECT * FROM posts WHERE movie_id = ?', movie_id, (err, results) => {
+        if (err) {
+            console.log(e);
+        }
+        else {
+            res.send({ results: results });
+        }
+    });
 });
 
 app.post("/review", (req, res) => {
@@ -189,6 +177,18 @@ app.post("/review", (req, res) => {
             console.log(err);
         }
     );
+});
+
+app.get("/review/:movieid", (req, res) => {
+    const movie_id = req.params.movieid;
+    pool.query('SELECT * FROM review WHERE movie_ID = ?', movie_id, (err, results) => {
+        if (err) {
+            console.log(e);
+        }
+        else {
+            res.send({ results: results });
+        }
+    });
 });
 
 
