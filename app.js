@@ -156,6 +156,18 @@ app.post("/post", (req, res) => {
 
 });
 
+app.get("/post", (req, res) => {
+  const post_content = req.body.content;
+  const movie_id = req.body.movieid;
+
+  pool.query("SELECT * FROM posts WHERE movie_id = ?", [movie_id],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+
+});
+
 app.post("/review", (req, res) => {
   const review_content = req.body.content;
   const movie_id = req.body.movieid;
