@@ -143,6 +143,32 @@ app.post("/login", (req, res) => {
   );
 })
 
+app.post("/post", (req, res) => {
+  const post_content = req.body.content;
+  const movie_id = req.body.movieid;
+
+  pool.query("INSERT INTO posts (post_content, movie_ID) VALUES (?,?)",
+    [post_content, movie_id],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+
+});
+
+app.post("/review", (req, res) => {
+  const review_content = req.body.content;
+  const movie_id = req.body.movieid;
+
+  pool.query("INSERT INTO review (review_content, movie_ID) VALUES (?,?)",
+    [review_content, movie_id],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
