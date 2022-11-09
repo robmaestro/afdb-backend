@@ -72,6 +72,24 @@ app.post("/register", (req, res) => {
 
 });
 
+app.post("/watchlist", (req, res) => {
+
+  const movieid = req.body.movieid;
+  const poster = req.body.poster;
+  const title = req.body.title;
+  const year = req.body.year;
+  const director = req.body.director;
+  const plot = req.body.plot;
+
+  pool.query("INSERT INTO user_watchlist (Movie_ID,Poster,Title,Year,Director,Plot) VALUES (?,?,?,?,?,?)",
+      [movieid,poster, title, year, director, plot],
+      (err, result) => {
+        console.log(err);
+      }
+    );
+  })
+
+
 
 app.post("/login", (req, res) => {
   const email = req.body.email;
