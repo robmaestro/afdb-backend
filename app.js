@@ -9,10 +9,11 @@ const session = require('express-session')
 
 const bcrpyt = require('bcrypt')
 const saltRounds = 10
+
 const app = express();
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 // {
 //   origin: ["http://localhost:5000/"],
 //   method: ["GET" ,"POST"],
@@ -23,7 +24,7 @@ app.use(cors())
 // app.use(bodyParser.urlencoded({ extended: true}));
 
 // app.use(session({
-//   key: "CookieID",
+//   key: "UserID",
 //   secret: "Secret",
 //   resave: false,
 //   saveUninitialized:  false,
@@ -73,8 +74,8 @@ app.get('/mywatchlist', (req, res) => {
   });
 });
 
-app.get('/genre', (req, res) => {
-  const genre = req.body.genre;
+app.get('/genre/:genre', (req, res) => {
+  const genre = req.params.genre;
 
   pool.query('SELECT * FROM movies WHERE genre = ?;', genre, (err, results) => {
     if (err) {
@@ -137,13 +138,14 @@ app.post("/login", (req, res) => {
       if (err) {
         res.send({ err: err });
       }
-
       if (result.length > 0) {
         bcrpyt.compare(password, result[0].Password, (error, response) => {
           if (response) {
+            // req.session.user = result
+            // console.log(req.session.user)
             res.send(result);
           } else {
-            res.send({ message: "Wrong email or password." });
+            res.send({ message: "Incorrect password." });
           }
         });
       }
