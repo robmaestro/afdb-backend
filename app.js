@@ -106,12 +106,12 @@ app.post("/watchlist", (req, res) => {
   const plot = req.body.plot;
 
   pool.query("INSERT INTO user_watchlist (Movie_ID,Poster,Title,Year,Director,Plot) VALUES (?,?,?,?,?,?)",
-      [movieid,poster, title, year, director, plot],
-      (err, result) => {
-        console.log(err);
-      }
-    );
-  })
+    [movieid, poster, title, year, director, plot],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+})
 
 
 
@@ -156,16 +156,16 @@ app.post("/post", (req, res) => {
 
 });
 
-app.get("/post", (req, res) => {
-  const post_content = req.body.content;
+app.get("/toks", (req, res) => {
   const movie_id = req.body.movieid;
-
-  pool.query("SELECT * FROM posts WHERE movie_id = ?", [movie_id],
-    (err, result) => {
-      console.log(err);
+  pool.query('SELECT * FROM posts WHERE movie_id = ?', movie_id, (err, results) => {
+    if (err) {
+      console.log(e);
     }
-  );
-
+    else {
+      res.send({ results: results });
+    }
+  });
 });
 
 app.post("/review", (req, res) => {
