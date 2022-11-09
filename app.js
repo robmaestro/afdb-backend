@@ -50,6 +50,17 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/mywatchlist', (req, res) => {
+  pool.query('SELECT * FROM user_watchlist', (err, results) => {
+    if (err) {
+      console.log(e);
+    }
+    else {
+      res.send({ results: results });
+    }
+  });
+});
+
 app.get('/genre', (req, res) => {
   const genre = req.body.genre;
 
